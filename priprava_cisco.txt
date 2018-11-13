@@ -1,0 +1,16 @@
+knihovna na oled:
+https://www.npmjs.com/package/oled-js-pi
+
+Inicializace repositáře:
+git clone https://github.com/Kondr4/cisco1.git
+
+Přidání změn (lokálně)
+git add .
+git commit -m "napsat co se dělalo"
+
+Poslání změn na github
+git push -u origin master
+
+Reset lokálníh změn
+git reset HEAD~
+
