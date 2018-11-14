@@ -1,6 +1,9 @@
 knihovna na oled:
 https://www.npmjs.com/package/oled-js-pi
 
+schema na oled:
+http://codelectron.com/setup-oled-display-raspberry-pi-python/
+
 Inicializace repositáře:
 git clone https://github.com/Kondr4/cisco1.git
 
