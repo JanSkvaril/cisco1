@@ -6,7 +6,9 @@ var opts = {
 };
 
 var oled = new oled(opts);
+
 oled.clearDisplay();
+oled.fillRect(1, 1, 128, 64, 0);
 
 var font = require('oled-font-5x7');
 
