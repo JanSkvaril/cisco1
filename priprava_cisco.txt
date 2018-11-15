@@ -1,5 +1,5 @@
 knihovna na oled:
-https://www.npmjs.com/package/oled-js-pi
+https://github.com/normen/rpi-oled
 
 schema na oled:
 http://codelectron.com/setup-oled-display-raspberry-pi-python/
