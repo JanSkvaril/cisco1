@@ -1,2 +1,6 @@
 https://www.npmjs.com/package/pigpio - pwm
 https://www.w3schools.com/nodejs/nodejs_raspberrypi_gpio_intro.asp
+
+rotator:
+https://www.modmypi.com/blog/how-to-use-a-rotary-encoder-with-the-raspberry-pi
+https://www.npmjs.com/package/onoff-rotary
