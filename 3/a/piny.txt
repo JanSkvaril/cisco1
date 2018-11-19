@@ -1,0 +1,10 @@
+Disp	Rasp
+1 GND	9 (GND)
+2 VDD	1 (3.3V)
+3 SCK	5 (SCL)
+4 SDA	3 (SDA)
+________________________
+5 RES	kondenzator - 100 nF, připojit na display pin 1 (GND)
+		rezistor - 10k, připojit na napájení displaye pin 2 (3.3V)
+6 DC	pokud se připojí na display pin 1 (GND), nastaví se standartní adresa (0x3C)
+7 CS	na display pin 1 (GND)
