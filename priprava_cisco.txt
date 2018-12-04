@@ -1,3 +1,10 @@
+Zapojení na ds80b20
+http://www.circuitbasics.com/raspberry-pi-ds18b20-temperature-sensor-tutorial/
+
+DMP180 zapojení
+https://tutorials-raspberrypi.com/raspberry-pi-and-i2c-air-pressure-sensor-bmp180/
+https://www.mathworks.com/help/supportpkg/raspberrypiio/ug/about-i2c-interface-on-the-raspberry-pi-hardware.html
+
 knihovna na oled:
 https://github.com/normen/rpi-oled
 
