@@ -48,10 +48,10 @@ SendValueToVariable("temperature", temp,(resp)=>{
 });
 }
 
-SendTempeture();
+// SendTempeture();
 
 
-setInterval(()=>{
-SendTempeture();
-GetValueOfVariable("temperature",(resp)=>{console.log(resp)});
-}, 1000 * 60 * 1)
+// setInterval(()=>{
+// SendTempeture();
+// GetValueOfVariable("temperature",(resp)=>{console.log(resp)});
+// }, 1000 * 60 * 1)
