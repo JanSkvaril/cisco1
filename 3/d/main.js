@@ -2,6 +2,11 @@ var oled = require('rpi-oled');
 const rotaryEncoder = require('onoff-rotary');
 var font = require('oled-font-5x7');
 
+var ds18b20 = require('ds18b20');
+ds18b20.sensors(function(err, ids) {
+  console.log(ids);
+});
+
 const myEncoder = rotaryEncoder(10, 9); // Using BCM 5 & BCM 6 on the PI
 var opts = {
   width: 128,

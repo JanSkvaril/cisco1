@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ds18b20": "^0.1.0",
     "oled-font-5x7": "^1.0.3",
     "oled-js-pi": "^1.0.5",
     "onoff": "^3.2.2",
