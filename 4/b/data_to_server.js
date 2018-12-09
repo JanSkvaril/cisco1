@@ -37,7 +37,7 @@ ds18b20.sensors(function(err, ids) {
 });
 //console.log('Current temperature is' + ds18b20.temperatureSync('28-020c9245b784'));
 
-
+//pošle teptotu na server
 function SendTempeture(){
 let temp = ds18b20.temperatureSync('28-020c9245b784');
 SendValueToVariable("temperature", temp,(resp)=>{

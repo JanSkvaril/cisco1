@@ -3,6 +3,7 @@ var request = require('request');
 //api klíč
 const APIkey = "7pZjYdO0zV5rnUgn";
 
+//zavolá callback po obdržení všech proměných na serveru
 function GetAllVariables(callback){
   let APIurl = "https://api.nag-iot.zcu.cz/v2/variables?api_key=" + APIkey;
   console.log("requesting on " + APIurl);
@@ -11,6 +12,8 @@ function GetAllVariables(callback){
   });
 }
 
+//variable - název proměné na serveru
+//zavolá callback po obdržení konkrétní proměné ze serveru
 function GetValueOfVariable(variable,callback){
   let APIurl = "https://api.nag-iot.zcu.cz/v2/variable/"+variable+"?api_key=" + APIkey;
   console.log("requesting on " + APIurl);
@@ -19,6 +22,9 @@ function GetValueOfVariable(variable,callback){
   });
 }
 
+//variable - název proměné na serveru
+//value - hodnota na odeslání
+//zavolá callback po odeslání proměné na server
 function SendValueToVariable(variable,value,callback){
   let APIurl = "https://api.nag-iot.zcu.cz/v2/value/"+variable+"?api_key=" + APIkey;
   request({
