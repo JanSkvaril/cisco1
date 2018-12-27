@@ -38,10 +38,14 @@ let state = 0;
  myEncoder.on('rotation', direction => {
         state++;
         DisplayState();
+        //displayTxt(state.toString());
   });
 
 //zobrazí stav na oled
 function DisplayState(){
+	
+if (state >= 3) state = 0;
+if (state < 0) state = 2;
   //čas datum
   if (state == 0){
     displayTxt(date.toString());
@@ -64,10 +68,14 @@ let connection = false;
 
 //obnovení hodnot každou minutu
 setTimeout(()=>{
-  testConnection();
+  UpdateStates();
+},1000 * 60 * 0.25);
+
+function UpdateStates(){
+	testConnection();
   setTempeture();
   DisplayState();
-},1000 * 60 * 1);
+}
 
 //nastaví proměnou connection na true pokud se podaří navázat spojení se serverem;
 function testConnection(){
@@ -90,5 +98,8 @@ setTimeout(()=>{
   oled.turnOffDisplay();
   console.log("display vypnut");
 },1000 * 60 * 2);
+
+UpdateStates();
+DisplayState();
     
     
