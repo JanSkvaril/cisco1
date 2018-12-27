@@ -3,6 +3,15 @@ const rotaryEncoder = require('onoff-rotary');
 var font = require('oled-font-5x7');
 var ds18b20 = require('ds18b20');
 var request = require('request');
+//pro bmp
+var RaspiSensors = require('raspi-sensors');
+
+
+
+var bmp180 = new RaspiSensors.Sensor({
+    type    : "BMP180",
+    address : 0X77
+}); 
 
 //nastavení enkoderu
 const myEncoder = rotaryEncoder(10, 9); 
@@ -44,8 +53,8 @@ let state = 0;
 //zobrazí stav na oled
 function DisplayState(){
 	
-if (state >= 3) state = 0;
-if (state < 0) state = 2;
+if (state >= 4) state = 0;
+if (state < 0) state = 3;
   //čas datum
   if (state == 0){
     displayTxt(date.toString());
@@ -59,14 +68,18 @@ if (state < 0) state = 2;
     if (connection) displayTxt("Spojení navázáno");
     else displayTxt("Spojení se serverem nenavázáno :(");
   }
+  else if (state == 3){
+    displayTxt("Tlak: " + pressure);
+  }
 }
 
 let date = new Date();
 //periodicky obnovované hodnoty
 let tempeture = "0";
 let connection = false;
+let pressure = "0";
 
-//obnovení hodnot každou minutu
+//obnovení hodnot každou 1/4 minutu
 setTimeout(()=>{
   UpdateStates();
 },1000 * 60 * 0.25);
@@ -88,9 +101,23 @@ function testConnection(){
   });
 }
 
-//nastaví hodnotu ze serveru
+//nastaví hodnotu z cidla
 function setTempeture(){
   tempeture = ds18b20.temperatureSync('28-020c9245b784');
+}
+
+//nastav hodnotu z cidla
+function setPressure(){
+  bmp180.fetch(function(err, data) {
+    if(err) {
+        console.error("An error occured!");
+        console.error(err.cause);
+        return;
+    } 
+    if (data.type == "Pressure"){
+    pressure = data.value;
+    }
+});
 }
 
 //za 2 minuty se vypne display
