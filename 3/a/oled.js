@@ -3,7 +3,8 @@ var oled = require('rpi-oled');
 //parametry displaye
 var opts = {
   width: 128,
-  height: 64
+  height: 64,
+  adress:0x3C
 };
 
 var oled = new oled(opts);

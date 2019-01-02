@@ -35,7 +35,6 @@ var ds18b20 = require('ds18b20');
 ds18b20.sensors(function(err, ids) {
   console.log(ids);
 });
-//console.log('Current temperature is' + ds18b20.temperatureSync('28-020c9245b784'));
 
 //pošle teptotu na server
 function SendTempeture(){
@@ -48,10 +47,29 @@ SendValueToVariable("temperature", temp,(resp)=>{
 });
 }
 
-// SendTempeture();
+
+var RaspiSensors = require('raspi-sensors');
+var bmp180 = new RaspiSensors.Sensor({
+    type    : "BMP180",
+    address : 0X77
+}); 
+
+//pošle tlak na server
+function SendPressure(){
+  bmp180.fetch(function(err, data) {
+    let pres = data.value;
+    SendValueToVariable("pressure", pres,(resp)=>{
+      GetValueOfVariable("pressure",(resp)=>{
+        let o = JSON.parse(resp);
+        console.log("odeslán momentální tlak: " + o.value);
+      });
+    });
+});
+}
 
 
-// setInterval(()=>{
-// SendTempeture();
-// GetValueOfVariable("temperature",(resp)=>{console.log(resp)});
-// }, 1000 * 60 * 1)
+//periodicky posílá hodnoty na server
+ setInterval(()=>{
+ SendTempeture();
+  SendPressure();
+ }, 1000 * 60 * 1)
