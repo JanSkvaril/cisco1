@@ -24,6 +24,8 @@ void setup() {
    pinMode(positionPin, INPUT_PULLUP);
    pinMode(vibrationPin, INPUT_PULLUP);
    pinMode(pirPin, INPUT_PULLUP);
+
+   Serial.begin(9600); 
 }
 void warning(){
    for(int i = 0;i < NUM_LEDS;i++){
