@@ -42,7 +42,9 @@ Pro ovládání led pomocí PWM jsme použili knihovnu [pigpio](https://www.npmj
 
 #### d) Port – vstupní režim (push button) *******
 Pro připojení jsme zvolili push button, u kteréhose při stlačení vypsal text v konzoli. Připojení opět bylo velice jednoduché – vyvedení z GND pinu, do switche a ze switche zpátky vodičem na GPIO pin.
-##### **z nějakého důvodu nemáme** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+##### Programování stlačení tlačítka
+Použili jsme opět již zmíněnou knihovnu **onoff**. Jako parametry jsme zadávali pin tlačítka, `"in"` - že se jedná o tlačítko a `"both"` - že tlačítko reaguje i na pouhé stlačení, i na zmáčknutí.  
 
 
 ### 3. Oled, rotační encoder a senzory tlaku a teploty
