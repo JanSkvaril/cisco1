@@ -6,12 +6,12 @@
 CRGB leds[NUM_LEDS];
 
 
-//sensors
+//sensory
 int positionPin = 4;
 int vibrationPin = 5;
 int pirPin = 6;
 
-//default values for sensors
+//výchozí (klidové) hodnoty sensorů
 int posDef = 0;
 int vibDef = 1;
 int pirDef = 0;
@@ -27,6 +27,8 @@ void setup() {
 
    Serial.begin(9600); 
 }
+
+//funkce, která zabliká s led v případe poplachu
 void warning(){
    for(int i = 0;i < NUM_LEDS;i++){
     leds[i].r = 250;
@@ -41,10 +43,12 @@ void warning(){
     delay(200); 
 }
 void loop() {
+  //čtení hodnot
  int posVal = digitalRead(positionPin);
  int vibVal = digitalRead(vibrationPin);
  int pirVal = digitalRead(pirPin);
 
+//pokud neodpovídají hodnoty výchozím zpustí se alarm
   if (pirVal != pirDef){
     warning();
     }
@@ -57,5 +61,7 @@ if (posVal != posDef){
   warning();
   }
 
-delay(100);
+
+
+delay(100); 
 }

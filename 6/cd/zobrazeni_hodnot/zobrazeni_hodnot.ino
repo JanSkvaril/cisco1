@@ -30,15 +30,17 @@ void setup() {
   aLastState = digitalRead(outputA);
 }
 
+//"vypíše" poslanou analogovou hodnotu na LED
 void showOnLed(int value){
-  int displayVal = map(value,0,1023,0,NUM_LEDS-1);
-  int displayColor = map(value,0,1023,0,255);
+  int displayVal = map(value,0,1023,0,NUM_LEDS-1); //počet rozsvícených led
+  int displayColor = map(value,0,1023,0,255); //barva led
   
   for(int i = 0;i < NUM_LEDS;i++){   
   leds[i].r = 0;
   leds[i].g = 0;
   leds[i].b = 0; 
   } 
+  //nastaví hodnoty na led
   for(int i = 0;i < displayVal;i++){   
   leds[i].setHue(displayColor);  
   }  
@@ -46,7 +48,7 @@ void showOnLed(int value){
 }
 
 void loop() {
-  //state change
+  //změna stavu
   aState = digitalRead(outputA);   
    if (aState != aLastState){     
      if (digitalRead(outputB) != aState) { 
@@ -66,12 +68,12 @@ void loop() {
    Serial.print("Stav: ");
      Serial.println(counter);
 
-  //reading sensor values
+  //Čtení hodnot ze sensorů
   int poteVal =  analogRead(potePin);
   int fotoVal = analogRead(fotoPin);
   int termiVal = analogRead(termiPin);
 
-  //displaying chossen state
+  //zobrazení momentálního stavu v Arduino IDE consoli
   if (counter == 0){
       showOnLed(poteVal);
         Serial.print("potenciometr: ");

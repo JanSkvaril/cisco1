@@ -6,6 +6,13 @@
 ##### Volba jazyka
 Volili jsme ze dvou jazyků – Python a JavaScript. Python se z počátku zdál jako lepší varianta, protože velikost komunity v oboru IoT je jednoznačně větší než u JS. To je výhoda jednak v množství dostupných knihoven a kvalitě jejich dokumentace, a jednak v četnosti návodů, jak s určitými součástkami pracovat. Avšak problém byl, že python znal pouze jeden člen našeho týmu a mohli tak vzniknout problémy v případě jeho absence. Javascript jsme na druhou stranu více méně znali všichni a měli jsme tak možnost kód všichni poupravit, vyžádala-li by si to situace. Pro práci s JS jsme použili Node.js a na správu jeho balíčků NPM. Pro verzování a cloudové uskladnění jsme používali GIT s repositářem na stránce [github.com](https://github.com/JanSkvaril/cisco1 "github.com").
 
+##### Node.js
+Pro spuštění javascriptových scriptů jsme používali nodejs (https://nodejs.org). Jedná se o open-source prostředí pro spouštění javascriptu mimo prohlížeč, které používa stejný engine jako prohlížeč Chrome od společnosti Google (V8 JavaScript engine). Je podporován na všech významějších operačních systémech. V profesionálním prostředí se s ním nejčastěji setkáme na webových serverech.
+
+##### npm (node package manager)
+Pro náš projekt jsme potřebovali značné množství knihoven, proto jsme pro jejich správu používali npm (https://www.npmjs.com/). To nám umožnilo velmi jednoduše nainstalovat knihovny pomocí příkazu `npm install -nazev_knihovny-`. Tento příkaz navíc automaticky doinstaloval i všechny potřebné závislosti (dependecies), tj. instalovaná knihovna potřebovala. Příkazem `npm init` se vytvoří soubor `package.json` a složka `node_modules`. V `package.json` jsou uvedeny všechny nainstalované knihovny a jejich verze, v `node_modules` jsou potom samotné knihovny.
+
+
 ##### Zapojení
 Díky tomu, že máme nejlepší možné Raspberry Pi B+, tak jeho příprava šla poměrně snadno, pro prvotní nastavení jsme připojili Raspberry k monitoru a k němu ještě klávesnici + myš, systém Raspbian byl již přiložen na SD kartě, tudíž jsme jen provedli nutné aktualizace a nastavili v Raspberry sítě. Následně jsme také přidali programy pro vzdálené ovládání (VNC Viewer) a také pro psaní samostatných programů v námi zvoleném Javascriptu. Obraz celé SD karty jsme si pro jistotu zálohovali, kdyby se něco neočekávaného stalo a my potřebovali čistý systém, kam bychom jen přidali samostatně zálohované kódy. Jako další jsme si vytiskli rozložení pinů na Raspberry pro snadnější práci a zapojování a ve finále jsme vytiskli krabičku pro Raspberry, aby jej bylo možné snadno uložit a přenášet.
 

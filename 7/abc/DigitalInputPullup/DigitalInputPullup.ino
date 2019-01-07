@@ -1,16 +1,13 @@
 
 void setup() {
-  //start serial connection
   Serial.begin(9600);
-  //configure pin 2 as an input and enable the internal pull-up resistor
+  //pro jiný sensor stačí změnit číslo pinu
   pinMode(6, INPUT_PULLUP);
 
 }
 
 void loop() {
-  //read the pushbutton value into a variable
-  int sensorVal = digitalRead(6);
-  //print out the value of the pushbutton
-  Serial.println(sensorVal);
+  int sensorVal = digitalRead(6); //čte hodnotu z pinu
+  Serial.println(sensorVal); //vypíše
 
 }
