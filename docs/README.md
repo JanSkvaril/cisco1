@@ -27,13 +27,13 @@ Pro zapnutí a vypnutí LED jsme použili knihovnu [onoff](https://www.npmjs.com
 #### b) Řízení výkonu na GPIO portu
 Jako další krok jsme pomocí stejného zapojení jak v úloze a), akorát se změnou v kódu vyzkoušeli možnosti PWM (pulse width modulation) jak na led diodě, tak bzučáku. Jako poslední
 
-#### c) LED RGB
-Diodu jsme zapojili tak, že nejdelší nožička (2), bude navazovat na vodič, který povede do GND pinu na Raspberry, ostatní tři nožičky (které zprostředkovávají) zelenou, červenou a modrou, jsme napojili tak, že jsme využili 3x 330 Ohm rezistory, pro každou nožičku zvlášť a pak už jen vedli vodič do Raspberry na GPIO piny.
+#### c) LED RGB ***********
+Diodu jsme zapojili tak, že nejdelší nožička (2), bude navazovat na vodič, který povede do GND pinu na Raspberry, ostatní tři nožičky (které zprostředkovávají) zelenou, červenou a modrou, jsme napojili tak, že jsme využili 3x 330 Ohm rezistory, pro každou nožičku zvlášť a pak už jen vedli vodiče do Raspberry na GPIO piny.
 
 ##### Řízení LED pomocí PWM - úloha b) a c)
 Pro ovládání led pomocí PWM jsme použili knihovnu [pigpio](https://www.npmjs.com/package/pigpio "pigpio"). Ve skutečnosti se jedná o wrapper na [knihovnu pigpio v jazyce C](https://github.com/joan2937/pigpio "knihovnu pigpio v jazyce C"). Následný postup byl téměř totožný, s tím rozdílem, že jsme místo pouze binární hodnoty mohli nastavit hodnotu od 0 do 255, která určovala sílu svitu LED.
 
-#### d) Port – vstupní režim (push button)
+#### d) Port – vstupní režim (push button) *******
 Pro připojení jsme zvolili push button, u kteréhose při stlačení vypsal text v konzoli. Připojení opět bylo velice jednoduché – vyvedení z GND pinu, do switche a ze switche zpátky vodičem na GPIO pin.
 ##### **z nějakého důvodu nemáme** !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -66,7 +66,13 @@ Pro komunikaci se serverem jsme použili knihovnu [request](https://www.npmjs.co
 #### b) a c) Periodické odesílání dat na server
 Pro odesílání dat ze senzorů na server stačilo skombinovat předešlé skripty (4a, 3bc). Stačilo jen přidat funkci, která se zavolala jednou za určitý čas a odeslala tak hodnoty na server.
 
-### 5. Analogoví vstup na arduinu
+### 5. Analogové vstupy na arduinu
+##### Programování
+Jak je zmíněno v úloze 1 b), pro programování arduina jsme použili Arduino IDE. Každý kód obsahuje 2 základní funkce `setup()` a `loop()`. Setup se zavolá na začátku programu. Loop se poprvé volá hned jak skončí setup, a poté se volá neustále dokola vždy jak skončí.
+
+##### Arduino
+U úloh 5 a 7 jsou zmíněny jako zdroj příklady kódy, které jsou obsaženy v Arduino IDE, [zde je odkaz ne jejich online verzi](https://www.arduino.cc/en/Tutorial/BuiltInExamples "zde je odkaz ne jejich online verzi").
+
 Všechny senzory jsou připojeny na nepájivém poli (obr.1), + a – jsou zprostředkovány přes samotné přídavné USB napájení, které je v nepájivém poli a z dalších zdířek následně vede napájení samostatně do LED pásku a zbytek do řady pro napájení ostatních senzorů, napojených v řadě.
 U všech senzorů jsou taky děličky napětí na + větvi.
 
@@ -84,12 +90,6 @@ Hlavní nevýhodou analogových sensorů je, že jejich výstup je ([dle dokumen
 
 #### a), b) a c) Čtení hodnot z analogových sensorů
 Čtení hodnot z analogových vstupů bylo poměrně jednoduché. V Arduino IDE byli předchystané příklady (viz. úvod úlohy 5) jak s analogovými vstupy pracovat, z čehož jsme čerpali. Stačilo pouze použít funkci `analogRead()`, která jako argument bere číslo pinu. Vzhledem k tomu, že kód je pro všechny čidla stejný prakticky stejný (jedinou změnou je číslo pinu), jsme úlohu celou úlohu 5 shrnuli do jednoho souboru.
-
-##### Programování
-Jak je zmíněno v úloze 1 b), pro programování arduina jsme použili Arduino IDE. Každý kód obsahuje 2 základní funkce `setup()` a `loop()`. Setup se zavolá na začátku programu. Loop se poprvé volá hned jak skončí setup, a poté se volá neustále dokola vždy jak skončí.
-
-##### Arduino
-U úloh 5 a 7 jsou zmíněny jako zdroj příklady kódy, které jsou obsaženy v Arduino IDE, [zde je odkaz ne jejich online verzi](https://www.arduino.cc/en/Tutorial/BuiltInExamples "zde je odkaz ne jejich online verzi").
 
 ### 6. Zobrazení hodnot
 
