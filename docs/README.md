@@ -20,27 +20,27 @@ Díky tomu, že máme nejlepší možné Raspberry Pi B+, tak jeho příprava š
 
 #### b) Arudino Pro Micro
 ##### Zapojení
-Arduino jsme si připravili a jako první věc jsme připájely 2 řady pinů, které byly zabaleny u něj, abychom mohli zapojovat senzory a pracovat s ním. Na počítači si připravili Arduino IDE a začali pracovat na realizaci připojení senzorů na nepájivém poli. Samotné Arduino jsme zasunuli do nepájivého pole a v řadách odpovídajících pinů začali zapojovat vodiče pro práci se senzory.
+Arduino jsme si připravili a jako první věc jsme připájeli 2 řady pinů, které byly zabaleny u něj, abychom mohli zapojovat senzory a pracovat s ním. Na počítači si připravili Arduino IDE a začali pracovat na realizaci připojení senzorů na nepájivém poli. Samotné Arduino jsme zasunuli do nepájivého pole a v řadách odpovídajících pinů začali zapojovat vodiče pro práci se senzory.
 
 ##### Vývojové prostředí
 Pro programování arduina jsme použili doporučené [Arduino IDE](https://www.arduino.cc/en/main/software "Arduino IDE"). Po instalaci na PC jsme museli změnit v menu Nástroje vývojovou desku na Arduino/Genuino Micro.
 
 ### 2. Testování GPIO
 #### a) LED / bzučák
-Začali jsme s jednoduchým testováním GPIO portů a jejich ovládáním. Jako první jsme začali s LED diodou, kterou jsme zapojili do nepájivého pole a do odpovídajících zdířek jsme z gpio portu vyvedli vodič ke katodě a k výstupu přidali 330 Ohmový rezistor, od kterého vedli vodič zpátky k Raspberry k pinu GND. To samé jsme zopakovali s bzučákem, u kterého odpadla nutnost přidávat rezistor.
+Začali jsme s jednoduchým testováním GPIO portů a jejich ovládáním. Jako první jsme začali s LED diodou, kterou jsme zapojili do nepájivého pole a do odpovídajících zdířek jsme z gpio portu vyvedli vodič ke katodě (GND) a k anodě přidali 330 Ohmový rezistor, od kterého jsme vedli vodič k pinu GPIO 4. To samé jsme zopakovali s bzučákem, u kterého odpadla nutnost přidávat rezistor.
 ##### Programování  zapnutí / vypnutí LED
 Pro zapnutí a vypnutí LED jsme použili knihovnu [onoff](https://www.npmjs.com/package/onoff "onoff"). Do našeho projektu jsme ji přidali příkazem `npm install onoff`. Poté už jen stačilo vytvořit jednoduchý script. Nejdříve jsme si pomocí `require()` vyžádali knihovnu a vytvořili novou instanci třídy GPIO s dvěma parametry – číslo pinu, na kterém je led připojena, a specifikovali, že se jedná o výstup. Nakonec jsme jen zavolali metodu objektu `writeSync()` s parametrem 1 – tím jsme led zapnuli.
 
 #### b) Řízení výkonu na GPIO portu
-Jako další krok jsme pomocí stejného zapojení jak v úloze a), akorát se změnou v kódu vyzkoušeli možnosti PWM (pulse width modulation) jak na led diodě, tak bzučáku. Jako poslední
+Jako další krok jsme pomocí stejného zapojení jak v úloze a), akorát se změnou v kódu, vyzkoušeli možnosti PWM (pulse width modulation) jak na LED diodě, tak bzučáku. Jako poslední
 
-#### c) LED RGB ***********
-Diodu jsme zapojili tak, že nejdelší nožička (2), bude navazovat na vodič, který povede do GND pinu na Raspberry, ostatní tři nožičky (které zprostředkovávají) zelenou, červenou a modrou, jsme napojili tak, že jsme využili 3x 330 Ohm rezistory, pro každou nožičku zvlášť a pak už jen vedli vodiče do Raspberry na GPIO piny.
+#### c) LED RGB
+Diodu jsme zapojili tak, že nejdelší nožičku (2) jsme propojili k GND pinu na Raspberry, ostatní tři nožičky, které zprostředkovávají zelenou, červenou a modrou, jsme napojili přes rezistory 330 Ohm, do Raspberry na GPIO piny.
 
 ##### Řízení LED pomocí PWM - úloha b) a c)
-Pro ovládání led pomocí PWM jsme použili knihovnu [pigpio](https://www.npmjs.com/package/pigpio "pigpio"). Ve skutečnosti se jedná o wrapper na [knihovnu pigpio v jazyce C](https://github.com/joan2937/pigpio "knihovnu pigpio v jazyce C"). Následný postup byl téměř totožný, s tím rozdílem, že jsme místo pouze binární hodnoty mohli nastavit hodnotu od 0 do 255, která určovala sílu svitu LED.
+Pro ovládání LED pomocí PWM jsme použili knihovnu [pigpio](https://www.npmjs.com/package/pigpio "pigpio"). Ve skutečnosti se jedná o wrapper na [knihovnu pigpio v jazyce C](https://github.com/joan2937/pigpio "knihovnu pigpio v jazyce C"). Následný postup byl téměř totožný, s tím rozdílem, že jsme místo pouze binární hodnoty mohli nastavit hodnotu od 0 do 255, která určovala sílu svitu LED.
 
-#### d) Port – vstupní režim (push button) *******
+#### d) Port – vstupní režim (push button)
 Pro připojení jsme zvolili push button, u kteréhose při stlačení vypsal text v konzoli. Připojení opět bylo velice jednoduché – vyvedení z GND pinu, do switche a ze switche zpátky vodičem na GPIO pin.
 
 ##### Programování stlačení tlačítka
@@ -52,7 +52,13 @@ Použili jsme opět již zmíněnou knihovnu **onoff**. Jako parametry jsme zad�
 ![Alt text](oled_bmp_wiring.png "Zapojení oled a bmp")
 
 #### a) Oled
-Display jsme měli připojený přeš rozhraní **I2C**, které se museli v konfiguraci Raspberry nejdříve povolit. Pomocí `i2cdetect -y 1` jsme zjistili jakou má display adresu. Opět pomocí npm jsme nainstalovali knihovnu [rpi-oled](https://www.npmjs.com/package/rpi-oled "rpi-oled"). Po vyžádání knihovny jsme vytvořili instanci třídy oled, která jako parametr brala objekt s nastavením. Nastavili jsme pouze výšku a šířku (128x64). I2C adresa se shodovala s výchozí adresou, takže tu jsme specifikovat nemuseli. Poté jsme display vyčistili metodou `clearDisplay()` a přepsali černým obdélníkem pomocí metody `fillRect()`. Pro výpis textu na obrazovku jsme museli doinstalovat oled-font-5x7, jak bylo doporučeno v dokumentaci rpi-oled. Nakonec jsme pomocí `writeString()` vypsali textoví řetězec na display.
+
+##### Přepnutí do režimu I2C
+Protože se nám nedařilo zprovoznit display ve výchozím režimu SPI, rozhodli jsme se přepnout display do režimu I2C. Pro přepnutí do tohoto režimu jsme provedli následující úpravy dle (https://www.rhydolabz.com/displays-c-88/096-oled-display-module-spii2c-128x64-7-pin-blue-p-2079.html?fbclid=IwAR01Fl2575Qw3-an4vIVhHeEFRPm8UsqNTAZQd_Q1_9cJOnv2dR0KdUk6Wo): Odpájeli jsme rezistor z pozice R3 a připájeli do pozice R1, pozici rezistoru R8 jsme propojili. 
+
+##### Programování OLED displaye
+
+Display jsme měli připojený přes rozhraní **I2C**, které se museli v konfiguraci Raspberry nejdříve povolit. Pomocí `i2cdetect -y 1` jsme zjistili jakou má display adresu. Opět pomocí npm jsme nainstalovali knihovnu [rpi-oled](https://www.npmjs.com/package/rpi-oled "rpi-oled"). Po vyžádání knihovny jsme vytvořili instanci třídy oled, která jako parametr brala objekt s nastavením. Nastavili jsme pouze výšku a šířku (128x64). I2C adresa se shodovala s výchozí adresou, takže tu jsme specifikovat nemuseli. Poté jsme display vyčistili metodou `clearDisplay()` a přepsali černým obdélníkem pomocí metody `fillRect()`. Pro výpis textu na obrazovku jsme museli doinstalovat oled-font-5x7, jak bylo doporučeno v dokumentaci rpi-oled. Nakonec jsme pomocí `writeString()` vypsali textoví řetězec na display.
 
 #### b) Sensor tlaku a teploty Bmp180
 Sensor jsme napojily na rozhraní i2c. Opět jsme museli zjistit adresu sensoru pomocí příkazu `i2cdetect -y 1`. Pro práci se sensorem jsme použili knihovnu [RaspiSensors](https://www.npmjs.com/package/raspi-sensors "RaspiSensors"), kterou jsme stáhli a nainstalovali opět pomocí npm. Ve scriptu jsme po vyžádání knihovny vytvořili instanci třídy `RaspiSensors.Sensor`. Konstruktor třídy požadoval typ sensoru (což je BMP180) a jeho adresu (v našem případě to byla 0x77). Zjištění hodnot jsme provedly pomocí metody `fetch()`.
@@ -86,7 +92,7 @@ Všechny senzory jsou připojeny na nepájivém poli (obr.1), + a – jsou zpros
 U všech senzorů jsou taky děličky napětí na + větvi.
 
 #### a) Potenciometr 10K
-Senzor jsme připojili na předem určených portech, + a – jsou vyvedeny z řady od přídavného napájení, bez potřeby rezistoru. Prostřední vývod je veden vodičem na řadu, kde je pin u arduina.
+Potenciometr jsme připojili na předem určených portech, + a – jsou vyvedeny z řady od přídavného napájení. Prostřední vývod je veden vodičem na řadu, kde je pin u arduina.
 
 #### b) Fotorezistor
 Senzor je připojen jednou nožičkou v řadě, kudy vede GND z přídavného napájení a vedle je vyveden rezistor, který vede k vodiči, který vede do analogového portu Arduina.
@@ -103,12 +109,12 @@ Hlavní nevýhodou analogových sensorů je, že jejich výstup je ([dle dokumen
 ### 6. Zobrazení hodnot
 
 #### a) Použití LED pásku
-Rgb led pásek má napájení přímo od přídavného napájení v nepájivém poli. Vede zde + i – a pouze poslední – prostřední vodič vede k pinu arduina.
+RGB led pásek má napájení přímo od přídavného napájení v nepájivém poli. Vede zde + i – a prostřední vodič LED pásku vede k pinu arduina, přes který je řízen.
 
 Pro práci s programovatelným LED páskem jsme použili knihovnu [FastLED](https://github.com/FastLED/FastLED "FastLED"). S knihovnou se pracuje velmi jednoduše. Nejdříve je potřebovat věci jako počet LED, číslo pinu arduina, a typ LED pásku. Poté se vytvoří pole s jednotlivými letkami. Poté se každému prvku pole přiřadí barva, kterou má svítit. Aby se led rozsvítila danou barvou musí se použít příkaz `FastLED.show()`.
 
 #### b) Rotační encoder
-Rotační enkodér, je připojen velice jednoduše. VCC A GND jsou opět vyvedeny z řady přídavného napájení a piny pro informace o točení doprava, doleva jsou napojeny na vývody na Arduinu.
+Rotační enkodér, je připojen velice jednoduše. VCC A GND jsou opět vyvedeny z řady přídavného napájení a piny pro informace o otočení doprava, doleva jsou napojeny na vývody na Arduinu.
 
 Při zprovozňování rotačního encoderu jsme značně čerpali z [návodu](https://howtomechatronics.com/tutorials/arduino/rotary-encoder-works-use-arduino/ "návodu"). Nejdříve jsme museli opět definovat 2 piny, na kterých je encoder připojený. Nejdříve čteme hodnotu pinu A, pokud se změnila porovnáme ji s hodnotou pinu B, pokud je jiná, znamená to, že se encoder točí po směru hodinových ručiček, pokud ne tak proti směru.
 
@@ -120,7 +126,7 @@ Celý kód je kombinace kódů z úloh 5 a 6. Úlohu řešíme podobně jako  4 
 Digitální sensory jsou oproti těm analogovým ještě o něco stručnější. Jejich hodnoty jsou buď 0 nebo 1, ale jsou to většinou sensory, kde to nevadí (např. detektor pohybu) a u některých se dá i hardwarově nastavit citlivost.   
 
 #### a) b) Otřesové & polohové čidlo
-Čidla jsou zapojeny naprosto stejně, jako všechny ostatní a jejich výstupy připojeny do řady kam směřují nožičky Arduina v nepájivém poli. Je zde také použita dělička napětí
+Čidla jsou zapojeny naprosto stejně, jako všechny ostatní a jejich výstupy připojeny do řady kam směřují nožičky Arduina v nepájivém poli. Je zde také použit dělič napětí.
 
 #### c) PIR čidlo
 Senzor pohybu má již předem zadané piny, tudíž se opět opakovalo zapojení VCC A GND a zbývající pin byl připojen k vývodu pinu Arduina.
