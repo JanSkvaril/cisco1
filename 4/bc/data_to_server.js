@@ -72,4 +72,4 @@ function SendPressure(){
  setInterval(()=>{
  SendTempeture();
   SendPressure();
- }, 1000 * 60 * 1)
+ }, 1000 * 60 * 1);
