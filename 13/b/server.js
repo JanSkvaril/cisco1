@@ -1,12 +1,13 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-let publish = require("./mqtt");
+let publish = require("../a/mqtt");
 var app = express()
 app.use(bodyParser.text({
     type: 'text/plain'
 }))
 app.post('/light', function (req, res) {
-    publish("esplight", req.body)
+    publish("esplight", req.body);
+    res.send("odeslano")
 })
 app.post('/temp', function (req, res) {
     publish("esptemp", req.body)
